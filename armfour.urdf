@@ -1,0 +1,89 @@
+<robot name="origins">
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.08" radius="0.08"/>
+      </geometry>
+      <origin xyz="0 0 0.04"/>
+    </visual>
+  </link>
+  <link name="spin">
+    <visual>
+      <geometry>
+        <cylinder length="0.08" radius="0.0425"/>
+      </geometry>
+      <origin xyz="0 0 .16" rpy=" 1.570 0 1.57"/>
+    </visual>
+  </link>
+  <link name="arm1">
+    <visual>
+      <geometry>
+        <cylinder length="0.2175" radius="0.014"/>
+      </geometry>
+      <origin xyz="0 0.02 .10875"/>
+    </visual>
+  </link>
+  <link name="connect1">
+    <visual>
+      <geometry>
+        <cylinder length="0.075" radius="0.035"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy=" 1.570 0 1.57"/>
+    </visual>
+  </link>
+  <link name="arm2">
+    <visual>
+      <geometry>
+        <cylinder length="0.22" radius="0.014"/>
+      </geometry>
+      <origin xyz="0 0 .085"/>
+    </visual>
+  </link>
+  <link name="end">
+    <visual>
+      <geometry>
+        <cylinder length="0.13" radius="0.014"/>
+      </geometry>
+      <origin xyz="0 0 0.065"/>
+    </visual>
+  </link>
+  <joint name="base_to_spin" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="spin"/>
+  </joint>
+  <joint name="joint1" type="revolute">
+    <parent link="spin"/>
+    <child link="arm1"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000.0" lower="-1.57" upper=".780" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="0 0 .16"/>
+
+  </joint>
+  <joint name="arm1_to_arm2" type="revolute">
+    <axis xyz="1 0 0"/>
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="0 0.02 .2175"/>
+    <parent link="arm1"/>
+    <child link="connect1"/>
+  </joint>
+  <joint name="arm2spin" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="0 0.02 0"/>
+    <parent link="connect1"/>
+    <child link="arm2"/>
+  </joint>
+  <joint name="arm3spin" type="revolute">
+    <axis xyz="1 0 0"/>
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="0 0 .19"/>
+    <parent link="arm2"/>
+    <child link="end"/>
+  </joint>
+
+
+</robot>
